@@ -1,0 +1,34 @@
+class Solution(object):
+    def generateParenthesis(self, n):
+        ans=[]
+        
+        def isvalid(st):
+            count=0
+            for i in st:
+                if i=="(":
+                    count+=1
+                else:
+                    count-=1
+                if count<0:
+                    return False
+            if count==0:
+                return True
+            return False
+        
+
+        def paracheck(s):
+            if len(s)==(2*n):
+                if isvalid(s):
+                    ans.append(s)
+                return
+            if s.count("(")<n:
+                s=s+"("
+                paracheck(s)
+                s=s[:-1]
+            if s.count("(")>=s.count(")"):
+                s=s+")"
+                paracheck(s)
+
+        paracheck("")
+        return ans
+
