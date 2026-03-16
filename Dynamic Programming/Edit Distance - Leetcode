@@ -1,0 +1,22 @@
+class Solution(object):
+    def minDistance(self, word1, word2):
+        m=len(word1)
+        n=len(word2)
+        dp=[[-1]*501 for _ in range(501)]
+        
+        def fun(i,j):
+            if i==m:
+                return n-j
+            elif j==n:
+                return m-i
+            
+            if dp[i][j]!=-1:
+                return dp[i][j]
+
+            if word1[i]==word2[j]:
+                dp[i][j]=fun(i+1,j+1)
+                return dp[i][j]
+            else:
+                dp[i][j]=min(1+fun(i+1, j), 1+fun(i, j+1), 1+fun(i+1, j+1))
+                return dp[i][j]
+        return fun(0,0)
