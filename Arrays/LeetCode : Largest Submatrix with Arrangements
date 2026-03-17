@@ -1,0 +1,19 @@
+class Solution(object):
+    def largestSubmatrix(self, matrix):
+        
+        m=len(matrix)
+        n=len(matrix[0])
+        maxarea=0
+
+        for i in range(0,m):
+            heights=[]
+            for j in range(n):
+                if matrix[i][j]==1 and i>=1:
+                    matrix[i][j]=matrix[i][j]+matrix[i-1][j]
+            heights=sorted(matrix[i])
+            heights=heights[::-1]
+            
+            for k in range(n):
+                width=k+1
+                maxarea=max(maxarea, heights[k]*width)
+        return maxarea
