@@ -1,0 +1,18 @@
+class Solution(object):
+    def partition(self, s):
+        ans=[]
+        cur=[]
+
+        def fun(i,cur):
+            if i>=len(s):
+                ans.append(cur[:])    
+            for j in range(i,len(s)):
+                st=s[i:j+1]
+                if st==st[::-1]:
+                    cur.append(st)
+                    fun(j+1,cur)
+                    cur.pop()
+        fun(0,[])
+        return ans
+                    
+                
