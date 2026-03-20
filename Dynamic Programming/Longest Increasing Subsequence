@@ -1,0 +1,17 @@
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp=[[-1]*len(nums) for _ in range(len(nums))]
+        
+        def fun(i,p):
+            if i>=len(nums):
+                return 0
+            if dp[i][p]!=-1:
+                return dp[i][p]
+            tak=0
+            if p==-1 or nums[i]>nums[p]:
+                tak=1+fun(i+1,i)
+            
+            skip=fun(i+1,p)
+            dp[i][p]=max(tak , skip)
+            return dp[i][p]
+        return fun(0,-1)
