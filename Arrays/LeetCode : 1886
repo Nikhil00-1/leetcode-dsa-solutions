@@ -1,0 +1,21 @@
+class Solution:
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
+        m=len(matrix)
+        n=len(matrix[0])
+        dp=[[0]*n for _ in range(m)]
+
+        mx=0
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j]=="0":
+                    dp[i][j]=0
+                else:
+                    top=dp[i-1][j] if i>0 else 0
+                    left=dp[i][j-1] if j>0 else 0
+                    diagonal=dp[i-1][j-1] if i>0 and j>0 else 0
+
+                    dp[i][j]=1+min(top, left, diagonal)
+
+                if dp[i][j]>mx:
+                    mx=dp[i][j]
+        return mx**2
