@@ -1,0 +1,19 @@
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        
+        dp=[[-1]*1000 for _ in range(1000)]
+        m=len(text1)
+        n=len(text2)
+        def fun(i,j):
+            if i>=m or j>=n:
+                return 0
+            if dp[i][j]!=-1:
+                return dp[i][j]
+            
+            if text1[i]==text2[j]:
+                dp[i][j]= 1+fun(i+1, j+1)
+                return dp[i][j]
+            else:
+                dp[i][j]=max(fun(i+1, j), fun(i,j+1))
+                return dp[i][j]
+        return fun(0,0)
