@@ -1,0 +1,23 @@
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        
+        dp=[[-1]*1000 for _ in range(1000)]
+
+        m=len(s)
+
+        def fun(i,j):
+            if i>j:
+                return 0
+            if i==j:
+                return 1
+            if dp[i][j]!=-1:
+                return dp[i][j]
+            
+            if s[i]==s[j]:
+                dp[i][j]=2+fun(i+1, j-1)
+                return dp[i][j]
+            else:
+                dp[i][j]=max(fun(i+1,j), fun(i, j-1))
+                return dp[i][j]
+            
+        return fun(0,m-1)
