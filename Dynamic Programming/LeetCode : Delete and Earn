@@ -1,0 +1,29 @@
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        freq={}
+        nums=sorted(nums)
+        for i in range(len(nums)):
+            if nums[i] in freq:
+                freq[nums[i]]+=1
+            else:
+                freq[nums[i]]=1
+
+        
+        nums = list(dict.fromkeys(nums))
+        dp=[-1]*(len(nums))
+        def fun(i):
+            if i>=len(nums):
+                return 0
+            if dp[i]!=-1:
+                return dp[i]
+        
+            if i<len(nums)-1 and nums[i]+1!=nums[i+1]:
+                dp[i]= nums[i]*freq[nums[i]]+fun(i+1)
+                return dp[i]
+            else:
+                dp[i]=max(nums[i]*freq[nums[i]]+fun(i+2), fun(i+1))
+                return dp[i]
+
+        return fun(0)
+            
+            
