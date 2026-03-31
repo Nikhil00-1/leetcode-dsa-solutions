@@ -1,0 +1,25 @@
+class Solution:
+    def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
+        nums=sorted(nums)
+        n=len(nums)
+        dp=[1]*n
+        parent=[-1]*n
+        mx=1
+        maxi=0
+        for i in range(1,n):
+            for j in range(i):
+                if nums[i]%nums[j]==0:
+                    if dp[j] + 1 > dp[i]:
+                        dp[i] = dp[j] + 1
+                        parent[i] = j
+                    if dp[i]>mx:
+                        mx=dp[i]
+                        maxi=i
+
+        cur=maxi
+        ans=[]
+        while cur>=0:
+            ans.append(nums[cur])
+            cur=parent[cur]
+
+        return ans
