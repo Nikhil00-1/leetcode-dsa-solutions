@@ -1,0 +1,14 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        mxl=0
+        for i in range(len(s)):
+            for j in range(i,len(s)):
+                st=s[i:j+1]
+                rev=st[::-1]
+
+                if st==rev:
+                    if len(st)>mxl:
+                        mxl=len(st)
+                        sp=i
+
+        return s[sp:sp+mxl]
