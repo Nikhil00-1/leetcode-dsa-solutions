@@ -1,0 +1,21 @@
+class Solution:
+    def stoneGame(self, piles: List[int]) -> bool:
+        n=len(piles)
+        dp=[[[None]*2 for _ in range(n)] for _ in range(n)]
+
+        def fun(i,j,t):
+            if i>j:
+                return 0
+            if dp[i][j][t]!=None:
+                return dp[i][j][t]
+    
+            if t==0:
+                dp[i][j][t]=max(piles[i]+fun(i+1,j,1),piles[j]+fun(i,j-1,1))
+            else:
+                dp[i][j][t]=min(fun(i+1,j,0),fun(i,j-1,0))
+            return dp[i][j][t]
+
+        alice=fun(0,len(piles)-1,0)
+        bob=sum(piles)-alice
+        return alice>bob
+        
