@@ -1,0 +1,22 @@
+class Solution:
+    def minPathCost(self, grid: List[List[int]], moveCost: List[List[int]]) -> int:
+        m=len(grid)
+        n=len(grid[0])
+        dp=[[None]*n for _ in range(m)]
+        def fun(i,j):
+            if i==m-1:
+                return grid[i][j]
+            if dp[i][j]!=None:
+                return dp[i][j]
+    
+            mini=float('inf')
+
+            for x in range(n):
+                mini=min(mini,grid[i][j]+moveCost[grid[i][j]][x]+fun(i+1,x))
+            dp[i][j]=mini
+            return dp[i][j]
+
+        fimini=float('inf')
+        for a in range(n):
+            fimini=min(fimini,fun(0,a))
+        return fimini
