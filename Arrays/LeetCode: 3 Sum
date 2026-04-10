@@ -1,0 +1,14 @@
+class Solution:
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        n=len(nums)
+        ans=set()
+        for i in range(n):
+            map={}
+            for j in range(i+1,n):
+                r=0-(nums[i]+nums[j])
+                if r in map:
+                    triplet=tuple(sorted([nums[i],nums[j],r]))
+                    ans.add(triplet)
+                map[nums[j]]=j
+        
+        return [list(t) for t in ans]
