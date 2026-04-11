@@ -1,0 +1,11 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        num=set(nums)
+        ans=0
+        mx=0
+        for i in num:
+            if mx<nums.count(i):
+                mx=nums.count(i)
+                ans=i
+        return ans
+        
