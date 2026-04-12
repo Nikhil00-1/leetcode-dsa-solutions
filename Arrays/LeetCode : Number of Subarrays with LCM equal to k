@@ -1,0 +1,14 @@
+from math import lcm
+class Solution:
+    def subarrayLCM(self, nums: List[int], k: int) -> int:
+        count=0
+        n=len(nums)
+        for i in range(n):
+            l=nums[i]
+            for j in range(i,n):
+                l=lcm(l,nums[j])
+                if l==k:
+                    count+=1
+                if l>k:
+                    break
+        return count
