@@ -1,0 +1,24 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        
+        n=len(prices)
+        dp = [[[None]*3 for _ in range(2)] for _ in range(n)]
+
+        def fun(i,flag,day):
+            if i==n:
+                return 0
+            if day==0:
+                return 0
+            if dp[i][flag][day]!=None:
+                return dp[i][flag][day]
+            if flag==1:
+                buy=-prices[i]+fun(i+1,0,day)
+                skip=fun(i+1,flag,day)
+                profit=max(buy,skip)
+            else:
+                sell=prices[i]+fun(i+1,1,day-1)
+                s_skip=fun(i+1,flag,day)
+                profit=max(sell,s_skip)
+            dp[i][flag][day]=profit
+            return profit
+        return fun(0,1,2)
