@@ -1,0 +1,35 @@
+class Solution:
+    def maxProfit(self, prices, strategy, k):
+        n = len(prices)
+
+        # Base profit
+        base = sum(strategy[i] * prices[i] for i in range(n))
+
+        # First window
+        old_sum = 0
+        second_half = 0
+
+        for j in range(k):
+            old_sum += strategy[j] * prices[j]
+            if j >= k // 2:
+                second_half += prices[j]
+
+        max_gain = second_half - old_sum
+
+        # Sliding window
+        for i in range(1, n - k + 1):
+
+            # remove left
+            old_sum -= strategy[i - 1] * prices[i - 1]
+
+            # add right
+            old_sum += strategy[i + k - 1] * prices[i + k - 1]
+
+            # update second half
+            second_half -= prices[i + k//2 - 1]
+            second_half += prices[i + k - 1]
+
+            gain = second_half - old_sum
+            max_gain = max(max_gain, gain)
+
+        return base + max(0, max_gain)
