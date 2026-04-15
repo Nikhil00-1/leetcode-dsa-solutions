@@ -1,0 +1,30 @@
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        n=len(nums)
+        flag1=-1
+        for i in range(n-1,0,-1):
+            if nums[i]>nums[i-1]:
+                flag1=i-1
+                break
+        if flag1!=-1:
+            for j in range(n-1,0,-1):
+                if nums[flag1]<nums[j]:
+                    a=nums[flag1]
+                    nums[flag1]=nums[j]
+                    nums[j]=a
+                    break
+        m=flag1+1
+        n=len(nums)-1
+        while m<n:
+                x=nums[m]
+                nums[m]=nums[n]
+                nums[n]=x
+                m+=1
+                n-=1   
+            
+     
+        
+        
