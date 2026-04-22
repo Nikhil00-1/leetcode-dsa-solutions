@@ -1,0 +1,18 @@
+class Solution:
+    def twoEditWords(self, queries: List[str], dictionary: List[str]) -> List[str]:
+        ans=[]
+        def fun(s1,s2):
+            c=0
+            for i in range(len(s2)):
+                if s1[i]!=s2[i]:
+                    c+=1
+                if c>2:
+                    return False
+            return True
+        
+        for q in queries:
+            for d in dictionary:
+                if fun(q,d):
+                    ans.append(q)
+                    break
+        return ans
