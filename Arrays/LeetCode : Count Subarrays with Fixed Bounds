@@ -1,0 +1,18 @@
+class Solution:
+    def countSubarrays(self, nums: List[int], minK: int, maxK: int) -> int:
+        minidx=-1
+        maxidx=-1
+        curidx=-1
+        ans=0
+        for i in range(len(nums)):
+            if nums[i]<minK or nums[i]>maxK:
+                curidx=i
+            if nums[i]==minK:
+                minidx=i
+            if nums[i]==maxK:
+                maxidx=i
+            small=min(minidx,maxidx)
+            temp=small-curidx
+            if temp>0:
+                ans+=temp
+        return ans
