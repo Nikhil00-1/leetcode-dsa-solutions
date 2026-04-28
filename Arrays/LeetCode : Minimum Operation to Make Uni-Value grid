@@ -1,0 +1,27 @@
+class Solution:
+    def minOperations(self, grid: List[List[int]], x: int) -> int:
+
+        def fun(arr,mid):
+            count=0
+            p=arr[mid] 
+            for i in arr:
+                if abs(i-p)%x!=0:
+                    return -1
+                else:
+                    count+=abs(i-p)//x
+            return count
+        arr=[]
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                arr.append(grid[i][j])
+        arr.sort()
+
+        if len(arr)%2==0 and len(arr)>2:
+            mid1=len(arr)//2
+            mid2=mid1+1
+            a1=fun(arr,mid1)
+            a2=fun(arr,mid2)
+            return min(a1,a2)
+        else:
+            return fun(arr,len(arr)//2)
+
