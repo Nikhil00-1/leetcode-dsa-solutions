@@ -1,0 +1,17 @@
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        
+        mp={}
+        mp[0]=1
+        result=0
+        cumSum=0
+        for i in range(len(nums)):
+            cumSum+=nums[i]
+
+            if cumSum-k in mp:
+                result+=mp[cumSum-k]
+            if cumSum not in mp:
+                mp[cumSum]=1
+            else:
+                mp[cumSum]+=1
+        return result
