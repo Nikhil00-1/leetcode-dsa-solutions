@@ -1,0 +1,24 @@
+class Solution:
+    def rotateTheBox(self, boxGrid: List[List[str]]) -> List[List[str]]:
+        
+        m=len(boxGrid)
+        n=len(boxGrid[0])
+        grid=[[0]*m for _ in range(n)]
+
+        for i in range(n):
+            for  j in range(m):
+                grid[i][j]=boxGrid[j][i]
+    
+        for i in range(len(grid)):
+            grid[i].reverse()
+        
+        for i in range(len(grid[0])):
+            space=n-1
+            for j in range(len(grid)-1,-1,-1):
+                if grid[j][i]=='#':
+                    grid[j][i]='.'
+                    grid[space][i]='#'
+                    space=space-1
+                elif grid[j][i] == '*':
+                    space=j-1
+        return grid
