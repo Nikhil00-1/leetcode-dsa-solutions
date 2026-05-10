@@ -1,0 +1,55 @@
+class Solution:
+    def rotateGrid(self, grid, k):
+        m, n = len(grid), len(grid[0])
+        left=0
+        right=n-1
+        top=0
+        bot=m-1
+        arr=[]
+        while left<=right and top<=bot:
+            arr=[]
+            top1=top
+            bot1=bot
+            left1=left
+            right1=right
+            for i in range(left,right+1):
+                arr.append(grid[top][i])
+            top+=1
+
+            for j in range(top,bot+1):
+                arr.append(grid[j][right])
+            right-=1
+
+            for s in range(right,left-1,-1):
+                arr.append(grid[bot][s])
+            bot-=1
+
+            for l in range(bot,top-1,-1):
+                arr.append(grid[l][left])
+            left+=1
+
+            b = k % len(arr)
+            arr = arr[b:] + arr[:b]
+
+            a=0
+            for i in range(left1,right1+1):
+                grid[top1][i]=arr[a]
+                a+=1
+            top1+=1
+
+            for j in range(top1,bot1+1):
+                print(a)
+                grid[j][right1]=arr[a]
+                a+=1
+            right1-=1
+
+            for s in range(right1,left1-1,-1):
+                grid[bot1][s]=arr[a]
+                a+=1
+            bot1-=1
+
+            for l in range(bot1,top1-1,-1):
+                grid[l][left1]=arr[a]
+                a+=1
+            left1+=1
+        return grid
