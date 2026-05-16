@@ -1,0 +1,39 @@
+import java.util.*;
+class Solution {
+    public int dfs(int[][] grid, int r, int c, boolean[][] visited){
+        int m=grid.length;
+        int n=grid[0].length;
+        if(r<0 || c<0 || r>=m || c>=n || grid[r][c]!=1 || visited[r][c]==true){
+            return 0;
+        }
+
+        visited[r][c]=true;
+        
+        return 1+dfs(grid,r-1,c,visited)+dfs(grid, r+1,c, visited)+dfs(grid, r,c-1,visited)+dfs(grid,r,c+1,visited);
+
+    }
+
+    public int maxAreaOfIsland(int[][] grid) {
+        int m=grid.length;
+        int n=grid[0].length;
+        boolean[][] visited=new boolean[m][n];
+        int ans=0;
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                visited[i][j]=false;
+            }
+        }
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1 && visited[i][j]==false){
+                    int temp=dfs(grid,i,j,visited);
+                    System.out.println(temp);
+                    ans=Math.max(ans,temp);
+                }
+            }
+        } 
+        return ans;
+    }
+}
