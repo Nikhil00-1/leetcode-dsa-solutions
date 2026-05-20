@@ -1,0 +1,64 @@
+class Solution {
+
+    static void dfs(int i,int j,int[][] grid,boolean[][] visited, Queue<int[]> q){
+
+        if(i<0 || i>grid.length-1 || j<0 || j>grid[0].length-1 || visited[i][j]==true || grid[i][j] == 0){
+            return ;
+        }
+        visited[i][j]=true;
+        q.offer(new int[]{i, j});
+        grid[i][j]=2;
+        dfs(i+1,j,grid,visited,q);
+        dfs(i-1,j,grid,visited,q);
+        dfs(i,j+1,grid,visited,q);
+        dfs(i,j-1,grid,visited,q);
+    }
+
+    public int shortestBridge(int[][] grid) {
+        Queue<int[]> q=new LinkedList<>();
+        int m=grid.length;
+        int n=grid[0].length;
+        boolean[][] visited=new boolean[m][n];
+        int steps=0;
+        int flag=0;
+
+        int[][] dir={{-1,0},{1,0},{0,-1},{0,1}};
+    
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                    dfs(i,j,grid,visited,q);
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==1)
+                break;
+        }
+
+        while(!q.isEmpty()){
+            int s=q.size();
+
+            while(s-->0){
+                int[] arr=q.poll();
+                int r=arr[0];
+                int c=arr[1];
+
+                for(int i=0;i<4;i++){
+                    int u=r+dir[i][0];
+                    int v=c+dir[i][1];
+
+                    if(u>=0 && u<m && v>=0 && v<n && !visited[u][v]){
+                        if(grid[u][v]==1){
+                            return steps;
+                        }
+                        q.offer(new int[]{u,v});
+                        visited[u][v]=true;
+                    }
+                }
+            }
+            steps++;
+        }
+        return -1;
+    }
+}
