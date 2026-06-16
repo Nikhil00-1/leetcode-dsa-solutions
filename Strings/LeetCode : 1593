@@ -1,0 +1,29 @@
+class Solution {
+
+    int maxCount=0;
+
+    public void solve(int i, String s, int curC, Set<String> set){
+        if(i==s.length()){
+            maxCount=Math.max(maxCount, curC);
+            return;
+        }
+
+        for(int j=i;j<s.length();j++){
+            String sub=s.substring(i,j+1);
+
+            if(!set.contains(sub)){
+                set.add(sub);
+                solve(j+1,s,curC+1,set);
+                set.remove(sub);
+            }
+        }
+
+    }
+    public int maxUniqueSplit(String s) {
+        Set<String> set=new HashSet<>();
+        solve(0,s,0,set);
+
+        return maxCount;
+    }
+    
+}
