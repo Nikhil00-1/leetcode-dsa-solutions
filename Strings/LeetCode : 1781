@@ -1,0 +1,43 @@
+import java.util.*;
+class Solution {
+
+    public int findmax(int[] arr){
+        int max=arr[0];
+        
+        for(int i=0;i<arr.length;i++){
+            max=Math.max(max, arr[i]);
+        }
+        return max;
+    }
+
+    public int findmin(int[] arr){
+        int min=Integer.MAX_VALUE;
+
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]!=0 && arr[i]<min){
+                min=arr[i];
+            }
+        }
+        return min;
+    }
+
+    public int beautySum(String s) {
+        int n=s.length();
+        int ans=0;
+
+        for(int i=0;i<n;i++){
+            int[] freq=new int[26];
+            for(int j=i;j<n;j++){
+                freq[s.charAt(j)-'a']++;
+
+                int max=findmax(freq);
+                int min=findmin(freq);
+                if (min<Integer.MAX_VALUE){
+                    ans=ans+max-min;
+                }
+            }
+            System.out.println(Arrays.toString(freq));
+        }
+        return ans;
+    }
+}
