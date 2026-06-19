@@ -1,0 +1,21 @@
+class Solution {
+    public int numberOfSubstrings(String s) {
+
+        int n=s.length();
+        int[] mp=new int[3];
+        int ans=0;
+        int i=0;
+        int j=0;
+
+        while(j<n){
+            mp[s.charAt(j)-'a']++;
+            while(mp[0]>0 && mp[1]>0 && mp[2]>0){
+                ans=ans+(n-j);
+                mp[s.charAt(i)-'a']--;
+                i++;
+            }
+            j++;
+        }
+        return ans;   
+    }
+}
