@@ -1,0 +1,73 @@
+import java.util.*;
+class MyHashMap {
+
+    List<Pair>[] bucket;
+    int size=10000;
+
+    static class Pair{
+        int key;
+        int value;
+
+        Pair(int key, int value){
+            this.key=key;
+            this.value=value;
+        }
+    }
+
+    public MyHashMap() {
+        bucket = new LinkedList[size];
+
+        for(int i=0;i<size;i++){
+            bucket[i]= new LinkedList<>();
+        }
+    }
+    
+    public void put(int key, int value) {
+        int index=key%size;
+
+        List<Pair> chain=bucket[index];
+
+        for(Pair pair: chain){
+            if(pair.key==key){
+                pair.value=value;
+                return;
+            }
+        }
+        chain.add(new Pair(key, value));
+    }
+    
+    public int get(int key) {
+        int index=key%size;
+
+        List<Pair> chain=bucket[index];
+
+        for(int i=0;i<chain.size();i++){
+            if(chain.get(i).key==key){
+                return chain.get(i).value;
+            }
+        }
+        return -1;
+    }
+    
+    public void remove(int key) {
+        int index=key%size;
+
+        List<Pair> chain=bucket[index];
+
+        for(int i=0;i<chain.size();i++){
+            if(chain.get(i).key==key){
+                chain.remove(i);
+                return;
+            }
+        }
+        
+    }
+}
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap obj = new MyHashMap();
+ * obj.put(key,value);
+ * int param_2 = obj.get(key);
+ * obj.remove(key);
+ */
