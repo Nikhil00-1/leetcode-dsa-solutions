@@ -1,0 +1,28 @@
+class Solution {
+    public int help(int x, int y, int[][] grid){
+        int h=grid.length;
+        int l=grid[0].length;
+        int c=0;
+        if((x>0 && grid[x-1][y]==0) || x==0)
+            c++;
+        if((x<h-1 && grid[x+1][y]==0) || x==h-1)
+            c++;
+        if((y>0 && grid[x][y-1]==0) || y==0)
+            c++;
+        if((y<l-1 && grid[x][y+1]==0) || y==l-1)
+            c++;
+        
+        return c;
+    }
+
+    public int islandPerimeter(int[][] grid) {
+        int ans=0;
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1)
+                    ans=ans+help(i,j, grid);
+            }
+        }
+        return ans;
+    }
+}
