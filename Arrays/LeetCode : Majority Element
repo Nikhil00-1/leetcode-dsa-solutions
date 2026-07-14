@@ -1,11 +1,13 @@
-class Solution(object):
-    def majorityElement(self, nums):
-        num=set(nums)
-        ans=0
-        mx=0
-        for i in num:
-            if mx<nums.count(i):
-                mx=nums.count(i)
-                ans=i
-        return ans
+class Solution {
+    public int majorityElement(int[] nums) {
         
+        Arrays.sort(nums);
+        int n=nums.length;
+
+        for(int i=0;i<n-(n/2);i++){
+            if(nums[i]==nums[i+(n/2)])
+                return nums[i];
+        }
+        return 0;
+    }
+}
