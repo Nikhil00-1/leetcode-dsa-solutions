@@ -1,0 +1,28 @@
+import java.util.*;
+class Solution {
+    public List<Integer> intersection(int[][] nums) {
+        
+        HashMap<Integer, Integer> map=new HashMap<>();
+
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<nums[i].length;j++){
+                if(map.containsKey(nums[i][j])==false){
+                    map.put(nums[i][j], 1);
+                }else{
+                    int temp=map.get(nums[i][j]);
+                    map.put(nums[i][j], temp+1);
+                }
+            }
+        }
+        System.out.println(map);
+        List<Integer> ans=new ArrayList<>();
+
+        for(int i:map.keySet()){
+            if(map.get(i)==nums.length)
+                ans.add(i);
+        }
+
+        Collections.sort(ans);
+        return ans;
+    }
+}
