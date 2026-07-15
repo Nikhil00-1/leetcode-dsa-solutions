@@ -1,15 +1,22 @@
-class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        
-        intervals.sort(key=lambda x:x[0])
-        ans=[]
+import java.util.*;
 
-        for i in range(len(intervals)):
-            if len(ans)==0:
-                ans.append(intervals[i])
-            elif ans[-1][1]>=intervals[i][0]:
-                if intervals[i][1]>ans[-1][1]:
-                    ans[-1][1]=intervals[i][1]   
-            else:
-                ans.append(intervals[i])
-        return ans
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        
+        Arrays.sort(intervals, (a,b) -> Integer.compare(a[0],b[0]));
+        ArrayList<int[]> res=new ArrayList<>();
+
+        res.add(intervals[0]);
+        for(int i=1;i<intervals.length;i++){
+            int[] cur=res.get(res.size()-1);
+            if(intervals[i][0]<=cur[1]){
+                cur[1]=Math.max(cur[1], intervals[i][1]);
+                res.set(res.size()-1, cur);
+            }else{
+                res.add(intervals[i]);
+            }
+        }
+       
+        return res.toArray(new int[0][]);
+    }
+}
