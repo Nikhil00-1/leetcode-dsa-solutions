@@ -1,0 +1,23 @@
+import java.util.*;
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int n=s2.length();
+
+        char[] news1=s1.toCharArray();
+        Arrays.sort(news1);
+        String ns1=new String(news1);
+
+        for(int i=0;i<=n-s1.length();i++){
+                int j=i+s1.length();
+
+                String t=s2.substring(i,j);
+                char[] temp=t.toCharArray();
+                Arrays.sort(temp);
+                if(ns1.equals(new String(temp))){
+                    return true;
+                }
+            
+        }
+        return false;
+    }
+}
