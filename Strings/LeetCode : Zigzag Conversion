@@ -1,0 +1,47 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows==1){
+            return s;
+        }
+        
+        ArrayList<ArrayList<Character>> arr=new ArrayList<>();
+        for(int i=0;i<numRows;i++){
+            arr.add(new ArrayList<Character>());
+        }
+        
+        int i=0;
+        int j=0;
+        boolean rev=false;
+        int n=s.length();
+
+        while(i<n){
+            char ch=s.charAt(i);
+
+            if(rev==false){
+                arr.get(j).add(ch);
+                if(j==numRows-1){
+                    rev=true;
+                    j--;
+                }else{
+                    j++;
+                }
+            }else{
+                arr.get(j).add(ch);
+                if(j==0){
+                    rev=false;
+                    j++;
+                }else{
+                    j--;
+                }
+            }
+            i++;
+        }
+        StringBuilder sb=new StringBuilder();
+        for(ArrayList<Character> list:arr){
+            for(char ch: list){
+                sb.append(ch);
+            }
+        }
+        return new String(sb);
+    }
+}
