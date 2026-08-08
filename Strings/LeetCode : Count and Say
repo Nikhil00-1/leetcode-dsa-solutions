@@ -1,45 +1,53 @@
 class Solution {
-
-    ArrayList<ArrayList<Integer>> help1(String s){
-
-        int i=0;
+    static ArrayList<ArrayList<Integer>> help1(StringBuilder s){
         ArrayList<ArrayList<Integer>> arr=new ArrayList<>();
-        while(i<s.length()){
-            char cur=s.charAt(i);
-            int count=0;
-            int j=i;
-            while(j<s.length() && cur==s.charAt(j)){
+
+        int count=0;
+        int i=0;
+        int n=s.length();
+        char ch=s.charAt(0);
+        while(i<n){
+            if(ch==s.charAt(i)){
                 count++;
-                j++;
+            }else{
+                ArrayList<Integer> temp=new ArrayList<>();
+                temp.add(count);
+                temp.add(ch-'0');
+                arr.add(temp);
+                count=1;
+                ch=s.charAt(i);
             }
-            ArrayList<Integer> row=new ArrayList<>();
-            row.add(cur-'0');
-            row.add(count);
-            arr.add(row);
-            i=j;
+            i++;
         }
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(count);
+        temp.add(ch - '0');
+        arr.add(temp);
         return arr;
     }
 
-    String help2(ArrayList<ArrayList<Integer>> arr){
-        
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i<arr.size();i++){
-            char c=(char)(arr.get(i).get(0)+'0');
-            int x=arr.get(i).get(1);
-            sb.append(x);
-            sb.append(c);
+    static StringBuilder help2(ArrayList<ArrayList<Integer>> arr){
+        StringBuilder sb=new StringBuilder();
 
+        for(ArrayList a:arr){
+            sb.append(String.valueOf(a.get(0)));
+            sb.append(String.valueOf(a.get(1)));
         }
-        return sb.toString();
+
+        return sb;
     }
-
     public String countAndSay(int n) {
-        String strr="1";
-        for(int i=0;i<n-1;i++){
-            ArrayList<ArrayList<Integer>> arry=help1(strr);
-            strr=help2(arry);
+        
+        StringBuilder str=new StringBuilder();
+        ArrayList<ArrayList<Integer>> arr=new ArrayList<>();
+        str.append("1");
+        int i=0;
+        while(i<n-1){
+            arr=help1(str);
+            str=help2(arr);
+            i++;
         }
-        return strr;
+
+        return new String(str);
     }
 }
