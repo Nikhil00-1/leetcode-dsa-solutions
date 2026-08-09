@@ -1,0 +1,57 @@
+class Solution {
+    public String addStrings(String num1, String num2) {
+        int n1=num1.length();
+        int n2=num2.length();
+        if(n1<n2){
+            String t=num1;
+            num1=num2;
+            num2=t;
+
+        }
+        
+        int carry=0;
+        StringBuilder ans=new StringBuilder();
+       
+            int i=num1.length()-1;
+            int j=num2.length()-1;
+            while(i>=0 && j>=0){
+                int ch1=num1.charAt(i);
+                int ch2=num2.charAt(j);
+                int add=carry+(ch1-'0')+(ch2-'0');
+                if(add>9){
+                    int next=add%10;
+                    carry=add/10;
+                    ans.append((char) (next + '0'));
+                }else{
+                     ans.append((char) (add+'0'));
+                     carry=0;
+                }
+
+                i--;
+                j--;
+            }
+            while(i>=0){
+                int ch1=num1.charAt(i);
+                int add=carry+(ch1-'0');
+
+                if(add>9){
+                    int next=add%10;
+                    carry=add/10;
+                    ans.append((char) (next+'0'));
+                }else{
+                     ans.append((char) (add+'0'));
+                     carry=0;
+                }
+
+                i--;
+            }
+
+            if (carry > 0) {
+                ans.append((char)(carry + '0'));
+            }
+        
+        ans.reverse();
+
+        return ans.toString();
+    }
+}
