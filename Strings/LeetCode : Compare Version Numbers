@@ -1,0 +1,30 @@
+class Solution {
+    public int compareVersion(String version1, String version2) {
+        int i=0;
+        int j=0;
+
+        while(i<version1.length() || j<version2.length()){
+            int cur1=0;
+            int cur2=0;
+            while(i<version1.length() && version1.charAt(i)!='.'){
+                cur1=(cur1*10)+version1.charAt(i)-'0';
+                i++;
+            }
+
+            while(j<version2.length() && version2.charAt(j)!='.'){
+                cur2=(cur2*10)+version2.charAt(j)- '0';
+                j++;
+            }
+            
+            if(cur1>cur2){
+                return 1;
+            }
+            if(cur2>cur1){
+                return -1;
+            }
+            i++;
+            j++;
+        }
+        return 0;
+    }
+}
