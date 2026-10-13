@@ -1,0 +1,10 @@
+class Solution {
+    public int findCenter(int[][] edges) {
+        int x1=edges[0][0];
+        int x2=edges[0][1];
+        if(edges[1][0]==x1 || edges[1][1]==x1){
+            return x1;
+        }
+        return x2;
+    }
+}
