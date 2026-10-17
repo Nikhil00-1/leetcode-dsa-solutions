@@ -1,0 +1,34 @@
+class Solution {
+    int n;
+    public static void dfs(int i, List<List<Integer>> list, boolean[] visited){
+        visited[i]=true;
+        for(int j: list.get(i)){
+            if(visited[j]==false){
+                dfs(j, list, visited);
+            }
+        }
+    }
+    public int findCircleNum(int[][] grid) {
+        n=grid.length;
+        List<List<Integer>> list=new ArrayList<>();
+        boolean[] visited=new boolean[n];
+
+        for(int i=0;i<n;i++){
+            list.add(new ArrayList<>());
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                    list.get(i).add(j);
+                }
+            }
+        }
+
+        int count=0;
+        for(int i=0;i<n;i++){
+            if(visited[i]==false){
+                dfs(i, list, visited);
+                count++;
+            }
+        }
+        return count;
+    }
+}
