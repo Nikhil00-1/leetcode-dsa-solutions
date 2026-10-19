@@ -1,0 +1,28 @@
+import java.util.*;
+class Solution {
+    static boolean[] visited;
+    public static void dfs(int node, List<List<Integer>> rooms){
+        if(visited[node]==true){
+            return;
+        }
+        visited[node]=true;
+        for(int i: rooms.get(node)){
+            if(visited[i]==false){
+                dfs(i, rooms);
+            }
+        }
+    }
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        int n=rooms.size();
+        visited=new boolean[n];
+        dfs(0, rooms);
+
+        for(int i=0;i<n;i++){
+            if(visited[i]==false){
+                return false;
+            }
+        }
+        return true;
+
+    }
+}
