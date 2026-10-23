@@ -1,0 +1,81 @@
+class Solution {
+    static int ans;
+    public static void bfs(Queue<ArrayList<Integer>> queue, int[][] grid){
+        int m=grid.length;
+        int n=grid[0].length;
+
+        while(queue.isEmpty()==false){
+            int size=queue.size();
+            ans++;
+            for(int i=0;i<size;i++){
+                ArrayList<Integer> curCell=queue.poll();
+                int a=curCell.get(0);
+                int b=curCell.get(1);
+                grid[a][b]=2;
+                
+                if(a>0 && grid[a-1][b]==1){
+                    ArrayList<Integer> cur=new ArrayList<>();
+                    cur.add(a-1);
+                    cur.add(b);
+                    grid[a-1][b]=-1;
+                    queue.offer(cur);
+                }
+                if(a<m-1 && grid[a+1][b]==1){
+                    ArrayList<Integer> cur=new ArrayList<>();
+                    cur.add(a+1);
+                    cur.add(b);
+                    grid[a+1][b]=-1;
+                    queue.offer(cur);
+                }
+                if(b>0 && grid[a][b-1]==1){
+                    ArrayList<Integer> cur=new ArrayList<>();
+                    cur.add(a);
+                    cur.add(b-1);
+                    grid[a][b-1]=-1;
+                    queue.offer(cur);
+                }
+                if(b<n-1 && grid[a][b+1]==1){
+                    ArrayList<Integer> cur=new ArrayList<>();
+                    cur.add(a);
+                    cur.add(b+1);
+                    grid[a][b+1]=-1;
+                    queue.offer(cur);
+                }
+            }
+        }
+    }
+    public int orangesRotting(int[][] grid) {
+        ans=0; 
+
+        int m=grid.length;
+        int n=grid[0].length;
+        int c1=0;
+        Queue<ArrayList<Integer>> queue=new LinkedList<>();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==2){
+                    ArrayList<Integer> list=new ArrayList<>();
+                    list.add(i);
+                    list.add(j);
+                    queue.offer(list);
+                }
+                if(grid[i][j]==1){
+                    c1++;
+                }
+            }
+        }
+        if(c1==0){
+            return 0;
+        }
+        
+        bfs(queue, grid);
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                   return -1;
+                }
+            }
+        }
+        return ans-1;
+    }
+}
