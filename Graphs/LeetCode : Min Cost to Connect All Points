@@ -1,0 +1,42 @@
+class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        ArrayList<ArrayList<ArrayList<Integer>>> adj=new ArrayList<>();
+        for(int i=0;i<points.length;i++){
+            adj.add(new ArrayList()); 
+        }
+        for(int i=0;i<points.length;i++){
+            for(int j=i+1;j<points.length;j++){
+                int[] p1=points[i];
+                int[] p2=points[j];
+
+                int dist=Math.abs(p1[0]-p2[0])+Math.abs(p1[1]-p2[1]);
+
+                adj.get(i).add(new ArrayList(List.of(j, dist)));
+                adj.get(j).add(new ArrayList(List.of(i, dist)));
+            }
+        }
+
+        int n=adj.size();
+        PriorityQueue<int[]> minHeap=new PriorityQueue<>((a,b)->Integer.compare(a[0], b[0]));
+        boolean[] visited=new boolean[n];
+        
+        minHeap.offer(new int[]{0, 0});
+        
+        int ans=0;
+        while(!minHeap.isEmpty()){
+            int[] cur=minHeap.poll();
+            if(visited[cur[1]]==true){
+                continue;
+            }
+            visited[cur[1]]=true;
+            ans+=cur[0];
+            
+            for(ArrayList<Integer> arr:adj.get(cur[1])){
+                if(visited[arr.get(0)]==false){
+                    minHeap.offer(new int[]{arr.get(1), arr.get(0)});
+                }
+            }
+        }
+        return ans;
+    }
+}
