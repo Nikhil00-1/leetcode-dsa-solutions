@@ -1,0 +1,38 @@
+import java.util.*;
+
+class Solution {
+    public static boolean dfs(int u, ArrayList<ArrayList<Integer>> adj, int[] parent){
+      
+        for(int v:adj.get(u)){
+            if(v==parent[u]){
+                continue;
+            }
+            if(parent[v]!=-1){
+                return true;
+            }
+            parent[v]=u;
+            if(dfs(v,adj, parent)==true){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean isCycle(ArrayList<ArrayList<Integer>> adj) {
+        
+        int n=adj.size();
+        int[] parent=new int[n];
+        
+        Arrays.fill(parent, -1);
+        
+        for(int i=0;i<n;i++){
+            if(parent[i]==-1){
+                if(dfs(i, adj, parent)==true){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+}
