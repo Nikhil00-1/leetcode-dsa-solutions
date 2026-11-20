@@ -1,0 +1,43 @@
+class Solution {
+    public int minTimeToReach(int[][] adj) {
+        
+        int m=adj.length;
+        int n=adj[0].length;
+
+        PriorityQueue<int[]> queue=new PriorityQueue<>((a,b)->Integer.compare(a[0], b[0]));
+        int[][] time=new int[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                time[i][j]=-1;
+            }
+        }
+
+        time[0][0]=0;
+        int[][] directions=new int[][]{{1,0},{0,1},{-1,0},{0,-1}};
+        queue.offer(new int[]{0,0,0});
+        while(!queue.isEmpty()){
+
+            int[] cur=queue.poll();
+            if(cur[1]==m-1 && cur[2]==n-1){
+                return cur[0];
+            }
+
+            for(int[] dir:directions){
+                int new_i=cur[1]+dir[0];
+                int new_j=cur[2]+dir[1];
+
+                if(new_i>=0 && new_j>=0 && new_i<m && new_j<n && time[new_i][new_j]==-1){
+                    if(adj[new_i][new_j]>cur[0]){
+                        int curtime=cur[0]+adj[new_i][new_j]-cur[0]+1;
+                        queue.offer(new int[]{curtime, new_i, new_j});
+                        time[new_i][new_j]=curtime;
+                    }else{
+                        queue.offer(new int[]{cur[0]+1, new_i, new_j});
+                        time[new_i][new_j]=cur[0]+1;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+}
