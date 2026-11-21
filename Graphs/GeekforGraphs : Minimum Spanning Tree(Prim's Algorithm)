@@ -2,26 +2,29 @@ class Solution {
     public int primMST(ArrayList<ArrayList<ArrayList<Integer>>> adj) {
         
         int n=adj.size();
-        PriorityQueue<int[]> minHeap=new PriorityQueue<>((a,b)->Integer.compare(a[0], b[0]));
+        PriorityQueue<int[]> queue=new PriorityQueue<>((a,b)->Integer.compare(a[0], b[0]));
         boolean[] visited=new boolean[n];
         
-        minHeap.offer(new int[]{0, 0});
-        
+        queue.offer(new int[]{0,0});
         int ans=0;
-        while(!minHeap.isEmpty()){
-            int[] cur=minHeap.poll();
-            if(visited[cur[1]]==true){
-                continue;
-            }
-            visited[cur[1]]=true;
-            ans+=cur[0];
+        
+        while(!queue.isEmpty()){
             
-            for(ArrayList<Integer> arr:adj.get(cur[1])){
-                if(visited[arr.get(0)]==false){
-                    minHeap.offer(new int[]{arr.get(1), arr.get(0)});
+            int[] cur=queue.poll();
+            //System.out.println(Arrays.toString(cur));
+            if(visited[cur[1]]==false){
+                ans+=cur[0];
+            }
+            
+            visited[cur[1]]=true;
+            for(ArrayList<Integer> dir:adj.get(cur[1])){
+                if(visited[dir.get(0)]==false){
+                    queue.offer(new int[]{dir.get(1), dir.get(0)});
                 }
             }
         }
+        
         return ans;
+        
     }
 }
