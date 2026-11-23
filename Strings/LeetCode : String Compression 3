@@ -1,0 +1,21 @@
+class Solution {
+    public String compressedString(String word) {
+        
+        int n=word.length();
+        int i=0;
+        StringBuilder ans=new StringBuilder();
+        while(i<n){
+            char curChar=word.charAt(i);
+            int count=0;
+
+            while(i<n && count<9 && word.charAt(i)==curChar){
+                count++;
+                i++;
+            }
+            ans.append(count);
+            ans.append(curChar);
+        }
+
+        return ans.toString();
+    }
+}
