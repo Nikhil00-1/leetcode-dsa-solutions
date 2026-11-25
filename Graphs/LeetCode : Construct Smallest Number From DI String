@@ -1,0 +1,49 @@
+import java.util.*;
+class Solution {
+    public static void reverse(int i, int j, int[] arr){
+        while(i<j){
+            int x=arr[i];
+            arr[i]=arr[j];
+            arr[j]=x;
+
+            i++;
+            j--;
+        }
+    }
+    public String smallestNumber(String pattern) {
+        int n=pattern.length();
+        int[] arr=new int[n+1];
+        for(int i=0;i<=n;i++){
+            arr[i]=i+1;
+        }
+        
+        System.out.println(Arrays.toString(arr));
+        int idx=0;
+        int i=0;
+        int j=1;
+
+        while(idx<n && i<=n && j<=n){
+            if(pattern.charAt(idx)=='D'){
+                idx++;
+                while(idx<n && j<8 && pattern.charAt(idx)=='D'){
+                    idx++;
+                    j++;
+                }
+
+                reverse(i,j,arr);
+                i=j;
+                j=i+1;
+            }else{
+                idx++;
+                i++;
+                j++;
+            }
+            
+        }
+        StringBuilder ans=new StringBuilder();
+        for(int a:arr){
+            ans.append(a);
+        }
+        return ans.toString();
+    }
+}
