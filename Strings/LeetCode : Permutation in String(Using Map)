@@ -1,0 +1,35 @@
+import java.util.*;
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length()>s2.length()){
+            return false;
+        }
+        int n=s2.length();
+        int[] map=new int[26];
+        int[] refMap=new int[26];
+
+        for(int i=0;i<s1.length();i++){
+            int idx=s1.charAt(i)-'a';
+            int idx2=s2.charAt(i)-'a';
+            refMap[idx]++;
+            map[idx2]++;
+        }
+        int i=0;
+
+        while(i<n-s1.length()){
+            if(Arrays.equals(map, refMap)){
+                return true;
+            }
+            char charR=s2.charAt(i+s1.length());
+            char charL=s2.charAt(i);
+
+            map[charR-'a']++;
+            map[charL-'a']--;
+            i++;
+        }
+        if(Arrays.equals(map, refMap)){
+                return true;
+            }
+        return false;
+    }
+}
